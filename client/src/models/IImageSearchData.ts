@@ -4,18 +4,18 @@ export interface IImageSearchData {
   spelling?: ISpelling;
 }
 
-interface ResultItem {
+export interface ResultItem {
   link: string;
   image: { byteSize: number };
 }
 
-interface IsearchInformation {
+export interface IsearchInformation {
   formattedSearchTime: string;
   formattedTotalResults: string;
   searchTime: number;
   totalResults: string;
 }
 
-interface ISpelling {
+export interface ISpelling {
   correctedQuery: string;
 }
