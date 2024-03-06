@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "favourites": [
+      {
+        "title": "lol",
+        "byteSize": 2345,
+        "url": "www.lol.com"
+      },
+      {
+        "title": "lol",
+        "byteSize": 2345,
+        "url": "www.lol.com"
+      },
+      {
+        "title": "lol",
+        "byteSize": 2345,
+        "url": "www.lol.com"
+      }
+    ]
+  }
+]
