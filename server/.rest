@@ -1,11 +1,11 @@
 GET http://localhost:3000/
 ###
-GET http://localhost:3000/users/favourites/1
+GET http://localhost:3000/users/favourites/kevin
 ###
 POST http://localhost:3000/users/favourite/add
 Content-Type: application/json
 
 {
-    "id": 1,
+    "id": "kevin",
     "favourite": {"title": "lol", "byteSize": 2345, "url": "www.lol.com"}
 }

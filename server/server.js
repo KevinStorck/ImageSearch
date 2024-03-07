@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const { log } = require("console");
 const fs = require("fs").promises;
 const app = express();
 
@@ -26,13 +27,13 @@ app.get("/users/favourites/:id", async (req, res) => {
 
 app.post("/users/favourite/add", async (req, res) => {
   let users = JSON.parse(await fs.readFile("./users.json", "utf-8"));
+  console.log(users);
   let found = false;
   users = users.map((user) => {
     if (user.id === req.body.id) {
       found = true;
-      req.body.favourite;
       return { ...user, favourites: [...user.favourites, req.body.favourite] };
-    } else user;
+    } else return user;
   });
   if (!found) users.push({ id: req.body.id, favourites: [req.body.favourite] });
   await fs.writeFile("./users.json", JSON.stringify(users, null, 2));

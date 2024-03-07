@@ -16,5 +16,5 @@ export const SearchOutputContext = createContext<ISearchOutputContext>({
       totalResults: "",
     },
   },
-  setSearchData: (searchData: IImageSearchData) => {},
+  setSearchData: () => {},
 });

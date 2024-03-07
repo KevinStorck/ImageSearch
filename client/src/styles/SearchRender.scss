@@ -1,0 +1,8 @@
+.searchImage {
+  max-width: 300px;
+  max-height: 300px;
+  &:hover {
+    box-shadow: 0px 0px 20px white;
+    cursor: pointer;
+  }
+}
