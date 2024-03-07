@@ -14,14 +14,6 @@ export const SearchInput = () => {
     let response = await axios.get<IImageSearchData>(
       `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${engineID}&searchType=image&q=${input}`
     );
-    console.log({
-      items: response.data.items.map((item) => ({
-        link: item.link,
-        image: { byteSize: item.image.byteSize },
-      })),
-      searchInformation: response.data.searchInformation,
-      spelling: response.data.spelling,
-    });
 
     setSearchData({
       items: response.data.items.map((item) => ({
@@ -31,10 +23,6 @@ export const SearchInput = () => {
       searchInformation: response.data.searchInformation,
       spelling: response.data.spelling,
     });
-    console.log(response);
-    // console.log(response.data.items[0].link);
-    // console.log(response.data.searchInformation.searchTime);
-    // console.log(response.data.spelling?.correctedQuery);
   };
   return (
     <>

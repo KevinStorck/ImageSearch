@@ -1,0 +1,24 @@
+#navBar {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100vw;
+  height: 50px;
+  background-color: rgb(110, 173, 152);
+  h1 {
+    color: white;
+    align-self: center;
+    font-size: 1.5rem;
+    padding: 0;
+    margin: 0;
+    text-shadow: 0px 0px 5px black;
+    &:hover {
+      color: rgb(221, 221, 221);
+    }
+  }
+  #navImg {
+    justify-self: start;
+    align-self: start;
+    max-height: 100%;
+  }
+}
