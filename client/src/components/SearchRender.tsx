@@ -8,8 +8,6 @@ export const SearchRender = () => {
   const { user, isAuthenticated } = useAuth0();
   const { searchData } = useContext(SearchOutputContext);
 
-  console.log(searchData.items);
-
   return (
     <div>
       {searchData.searchInformation.searchTime ? (
@@ -26,14 +24,14 @@ export const SearchRender = () => {
             let response = await axios.post(
               "http://localhost:3000/users/favourite/add",
               new FavouriteImage(user.sub, {
-                title: item.link,
+                title: item.searchTerm,
                 byteSize: item.image.byteSize,
                 url: item.link,
               })
             );
             console.log(response);
           }}
-          key={item.image.byteSize}
+          key={item.link}
           src={item.link}
           className="searchImage"
         />

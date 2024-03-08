@@ -5,6 +5,7 @@ export interface IImageSearchData {
 }
 
 export interface ResultItem {
+  searchTerm: string;
   link: string;
   image: { byteSize: number };
 }

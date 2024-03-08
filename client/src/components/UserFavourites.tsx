@@ -27,8 +27,8 @@ export const UserFavourites = () => {
 
   return (
     <div id="favourites">
-      {favourites?.map((image) => (
-        <img key={image.url} src={image.url} />
+      {favourites?.map((image, index) => (
+        <img key={index} src={image.url} />
       ))}
     </div>
   );
