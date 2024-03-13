@@ -1,40 +1,78 @@
-import { useContext } from "react";
-import { SearchOutputContext } from "../context/SearchOutputContext";
+import { useContext, useState } from "react";
+import { SearchDataContext } from "../context/SearchDataContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { FavouriteImage } from "../models/FavouriteImage";
+import { ImageSearch } from "../services/ImageSearchService";
+import { objectToIImageSearchData } from "../functions/objectToIImageSearchData";
 
-export const SearchRender = () => {
+interface ISearchRenderProps {
+  setInput: (input: string) => void;
+}
+
+export const SearchRender = ({ setInput }: ISearchRenderProps) => {
   const { user, isAuthenticated } = useAuth0();
-  const { searchData } = useContext(SearchOutputContext);
+  const { searchData, setSearchData } = useContext(SearchDataContext);
+
+  const [hover, setHover] = useState<string>("");
 
   return (
-    <div>
+    <div className="imageContainer">
       {searchData.searchInformation.searchTime ? (
         <h2>{searchData.searchInformation.searchTime}</h2>
       ) : (
         <></>
       )}
-      <h2>{searchData.spelling?.correctedQuery}</h2>
-      {searchData.items.map((item) => (
-        <img
+      {searchData.spelling && (
+        <h2
           onClick={async () => {
-            if (!isAuthenticated) return;
-            if (typeof user?.sub === "undefined") return;
-            let response = await axios.post(
-              "http://localhost:3000/users/favourite/add",
-              new FavouriteImage(user.sub, {
-                title: item.searchTerm,
-                byteSize: item.image.byteSize,
-                url: item.link,
-              })
-            );
-            console.log(response);
+            if (searchData.spelling) {
+              if (searchData.spelling.correctedQuery) {
+                setSearchData(
+                  objectToIImageSearchData(
+                    await ImageSearch(searchData.spelling.correctedQuery)
+                  )
+                );
+                setInput(searchData.spelling.correctedQuery);
+              }
+            }
           }}
+        >
+          {searchData.spelling.correctedQuery}
+        </h2>
+      )}
+      {searchData.items.map((item) => (
+        <div
+          className="imageCard"
           key={item.link}
-          src={item.link}
-          className="searchImage"
-        />
+          onMouseEnter={() => {
+            console.log(hover);
+
+            setHover(item.link);
+          }}
+          onMouseLeave={() => setHover("")}
+          style={item.link === hover ? { width: "800px" } : undefined}
+        >
+          <img
+            onClick={async () => {
+              if (!isAuthenticated) return;
+              if (typeof user?.sub === "undefined") return;
+              let response = await axios.post(
+                "http://localhost:3000/users/favourite/add",
+                new FavouriteImage(user.sub, {
+                  title: searchData.queries.request.searchTerms,
+                  byteSize: item.image.byteSize,
+                  url: item.link,
+                })
+              );
+              console.log(response);
+            }}
+            src={item.link}
+            className="searchImage"
+          />
+          {item.link === hover ? <p></p> : null}
+          {item.link === hover ? <button></button> : null}
+        </div>
       ))}
     </div>
   );
