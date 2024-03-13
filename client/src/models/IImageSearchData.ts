@@ -1,11 +1,12 @@
 export interface IImageSearchData {
   items: ResultItem[];
   searchInformation: IsearchInformation;
+  queries: { request: { searchTerms: string } };
   spelling?: ISpelling;
 }
 
 export interface ResultItem {
-  searchTerm: string;
+  title: string;
   link: string;
   image: { byteSize: number };
 }

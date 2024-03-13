@@ -3,11 +3,12 @@ import { SearchRender } from "./SearchRender";
 import { useState } from "react";
 import {
   ISearchOutputContext,
-  SearchOutputContext,
-} from "../context/SearchOutputContext";
+  SearchDataContext,
+} from "../context/SearchDataContext";
 import { IImageSearchData } from "../models/IImageSearchData";
 
 export const ImageSearchApp = () => {
+  const [input, setInput] = useState("");
   const [searchOutput, setSearchOutput] = useState<ISearchOutputContext>({
     searchData: {
       items: [],
@@ -17,6 +18,7 @@ export const ImageSearchApp = () => {
         searchTime: 0,
         totalResults: "",
       },
+      queries: { request: { searchTerms: "" } },
     },
     setSearchData: () => {},
   });
@@ -26,10 +28,10 @@ export const ImageSearchApp = () => {
 
   return (
     <>
-      <SearchOutputContext.Provider value={searchOutput}>
-        <SearchInput />
-        <SearchRender />
-      </SearchOutputContext.Provider>
+      <SearchDataContext.Provider value={searchOutput}>
+        <SearchInput input={input} setInput={setInput} />
+        <SearchRender setInput={setInput} />
+      </SearchDataContext.Provider>
     </>
   );
 };
