@@ -15,7 +15,9 @@ export const objectToIImageSearchData = (
       searchTime: object.searchInformation.searchTime,
       totalResults: object.searchInformation.totalResults,
     },
-    queries: { request: { searchTerms: object.queries.request.searchTerms } },
+    queries: {
+      request: [{ searchTerms: object.queries.request[0].searchTerms }],
+    },
   };
 
   if (object.spelling) {

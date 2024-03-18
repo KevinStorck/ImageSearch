@@ -1,7 +1,7 @@
 export interface IImageSearchData {
   items: ResultItem[];
   searchInformation: IsearchInformation;
-  queries: { request: { searchTerms: string } };
+  queries: { request: { searchTerms: string }[] };
   spelling?: ISpelling;
 }
 

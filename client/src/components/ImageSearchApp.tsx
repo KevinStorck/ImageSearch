@@ -6,9 +6,11 @@ import {
   SearchDataContext,
 } from "../context/SearchDataContext";
 import { IImageSearchData } from "../models/IImageSearchData";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const ImageSearchApp = () => {
   const [input, setInput] = useState("");
+  const { isAuthenticated } = useAuth0();
   const [searchOutput, setSearchOutput] = useState<ISearchOutputContext>({
     searchData: {
       items: [],
@@ -18,7 +20,7 @@ export const ImageSearchApp = () => {
         searchTime: 0,
         totalResults: "",
       },
-      queries: { request: { searchTerms: "" } },
+      queries: { request: [{ searchTerms: "" }] },
     },
     setSearchData: () => {},
   });
@@ -29,8 +31,12 @@ export const ImageSearchApp = () => {
   return (
     <>
       <SearchDataContext.Provider value={searchOutput}>
-        <SearchInput input={input} setInput={setInput} />
-        <SearchRender setInput={setInput} />
+        {!isAuthenticated ? null : (
+          <>
+            <SearchInput input={input} setInput={setInput} />
+            <SearchRender setInput={setInput} />
+          </>
+        )}
       </SearchDataContext.Provider>
     </>
   );

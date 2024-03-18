@@ -12,21 +12,32 @@ export const SearchInput = ({ input, setInput }: ISearchInputProps) => {
   const { setSearchData } = useContext(SearchDataContext);
 
   return (
-    <>
+    <div id="searchBar">
       <input
+        id="searchInputField"
         type="text"
         value={input}
         onChange={(e) => {
           setInput(e.target.value);
         }}
       ></input>
-      <button
+      <span
+        id="searchIcon"
+        className="material-symbols-outlined"
+        onClick={async () =>
+          setSearchData(objectToIImageSearchData(await ImageSearch(input)))
+        }
+      >
+        search
+      </span>
+      {/* <button
+        id="searchBtn"
         onClick={async () =>
           setSearchData(objectToIImageSearchData(await ImageSearch(input)))
         }
       >
         Sök
-      </button>
-    </>
+      </button> */}
+    </div>
   );
 };

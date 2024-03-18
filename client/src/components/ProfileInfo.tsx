@@ -1,7 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { LoginButton } from "./LoginButton";
-import { LogoutButton } from "./LogoutButton";
 import { NavLink } from "react-router-dom";
+import { LogoutButton } from "./LogoutButton";
 
 export const ProfileInfo = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -10,11 +9,11 @@ export const ProfileInfo = () => {
     <div id="profile">
       {isAuthenticated && (
         <NavLink to={"/favourites"}>
-          <h1>{user?.nickname}</h1>
+          <h1>Favourites</h1>
         </NavLink>
       )}
       {isAuthenticated && <img src={user?.picture} alt="profile picture" />}
-      {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+      {isAuthenticated && <LogoutButton />}
     </div>
   );
 };
