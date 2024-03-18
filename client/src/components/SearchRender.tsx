@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { SearchDataContext } from "../context/SearchDataContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import { FavouriteImage } from "../models/FavouriteImage";
 import { ImageSearch } from "../services/ImageSearchService";
 import { objectToIImageSearchData } from "../functions/objectToIImageSearchData";
 
@@ -15,6 +14,8 @@ export const SearchRender = ({ setInput }: ISearchRenderProps) => {
   const { searchData, setSearchData } = useContext(SearchDataContext);
 
   const [hover, setHover] = useState<string>("");
+
+  console.log(searchData);
 
   return (
     <div className="imageContainer">
@@ -45,7 +46,7 @@ export const SearchRender = ({ setInput }: ISearchRenderProps) => {
         <div
           className="imageCard"
           key={item.link}
-          onMouseEnter={() => {
+          onClick={() => {
             console.log(hover);
 
             setHover(item.link);
@@ -59,11 +60,14 @@ export const SearchRender = ({ setInput }: ISearchRenderProps) => {
               if (typeof user?.sub === "undefined") return;
               let response = await axios.post(
                 "http://localhost:3000/users/favourite/add",
-                new FavouriteImage(user.sub, {
-                  title: searchData.queries.request.searchTerms,
-                  byteSize: item.image.byteSize,
-                  url: item.link,
-                })
+                {
+                  id: user.sub,
+                  favourite: {
+                    title: searchData.queries.request[0].searchTerms,
+                    byteSize: item.image.byteSize,
+                    url: item.link,
+                  },
+                }
               );
               console.log(response);
             }}

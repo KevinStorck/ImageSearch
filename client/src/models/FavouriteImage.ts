@@ -1,5 +1,6 @@
-export class FavouriteImage {
-  constructor(public id: string, public favourite: IImage) {}
+export interface FavouriteImage {
+  id: string;
+  favourite: IImage;
 }
 
 export interface IImage {

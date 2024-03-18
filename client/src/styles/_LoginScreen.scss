@@ -1,0 +1,15 @@
+@use "./variables" as v;
+#loginContainer {
+  width: 100dvw;
+  height: 100dvh;
+  background-color: v.$primary-color-yellow;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  h1 {
+    color: v.$primary-color-pink;
+    font-size: 5rem;
+    margin-bottom: 500px;
+  }
+}
