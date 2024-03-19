@@ -8,7 +8,7 @@ export interface IImageSearchData {
 export interface ResultItem {
   title: string;
   link: string;
-  image: { byteSize: number };
+  image: { byteSize: number; height: number; width: number };
 }
 
 export interface IsearchInformation {

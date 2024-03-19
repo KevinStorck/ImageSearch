@@ -7,7 +7,11 @@ export const objectToIImageSearchData = (
     items: object.items.map((item) => ({
       title: item.title,
       link: item.link,
-      image: { byteSize: item.image.byteSize },
+      image: {
+        byteSize: item.image.byteSize,
+        height: item.image.height,
+        width: item.image.width,
+      },
     })),
     searchInformation: {
       formattedSearchTime: object.searchInformation.formattedSearchTime,

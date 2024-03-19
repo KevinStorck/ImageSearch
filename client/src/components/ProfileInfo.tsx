@@ -6,7 +6,7 @@ export const ProfileInfo = () => {
   const { user, isAuthenticated } = useAuth0();
 
   return (
-    <div id="profile">
+    <div id="navBarRight">
       {isAuthenticated && (
         <NavLink to={"/favourites"}>
           <h1>Favourites</h1>
