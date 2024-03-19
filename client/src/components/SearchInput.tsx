@@ -17,6 +17,7 @@ export const SearchInput = ({ input, setInput }: ISearchInputProps) => {
         id="searchInputField"
         type="text"
         value={input}
+        placeholder="Sökterm"
         onChange={(e) => {
           setInput(e.target.value);
         }}
@@ -30,14 +31,6 @@ export const SearchInput = ({ input, setInput }: ISearchInputProps) => {
       >
         search
       </span>
-      {/* <button
-        id="searchBtn"
-        onClick={async () =>
-          setSearchData(objectToIImageSearchData(await ImageSearch(input)))
-        }
-      >
-        Sök
-      </button> */}
     </div>
   );
 };

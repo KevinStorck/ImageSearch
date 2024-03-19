@@ -1,11 +1,11 @@
 import { NavLink } from "react-router-dom";
-import { ProfileInfo } from "./ProfileInfo";
 import { motion } from "framer-motion";
 import { useAuth0 } from "@auth0/auth0-react";
 import { LoginButton } from "./LoginButton";
+import { LogoutButton } from "./LogoutButton";
 
 export const NavBar = () => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
   return (
     <motion.div
       initial={{ height: "100dvh" }}
@@ -15,7 +15,10 @@ export const NavBar = () => {
       }}
       id="navBar"
     >
-      <div id="navImg"></div>
+      <div id="navBarLeft">
+        {isAuthenticated && <img src={user?.picture} alt="profile picture" />}
+        {isAuthenticated && <h1>{user?.nickname}</h1>}
+      </div>
       <div>
         <NavLink
           className={({ isActive }) =>
@@ -42,7 +45,14 @@ export const NavBar = () => {
         </NavLink>
         {!isAuthenticated && <LoginButton />}
       </div>
-      <ProfileInfo />
+      <div id="navBarRight">
+        {isAuthenticated && (
+          <NavLink to={"/favourites"}>
+            <h1>Favourites</h1>
+          </NavLink>
+        )}
+        {isAuthenticated && <LogoutButton />}
+      </div>
     </motion.div>
   );
 };
