@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { RefObject, useContext, useEffect, useRef, useState } from "react";
 import { SearchDataContext } from "../context/SearchDataContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
@@ -15,6 +15,22 @@ export const SearchRender = ({ setInput }: ISearchRenderProps) => {
   const { searchData, setSearchData } = useContext(SearchDataContext);
 
   const [focus, setFocus] = useState<string>("");
+
+  function useOutsideAlerter(ref: RefObject<HTMLDivElement>) {
+    useEffect(() => {
+      function handleClickOutside(event: { target: any }) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setFocus("");
+        }
+      }
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  useOutsideAlerter(wrapperRef);
 
   return (
     <div className="searchResult">
@@ -45,15 +61,10 @@ export const SearchRender = ({ setInput }: ISearchRenderProps) => {
           ?
         </h2>
       )}
-      <div
-        className="imageContainer"
-        onClickCapture={() => {
-          setFocus("");
-        }}
-      >
+      <div className="imageContainer">
         {searchData.items.map((item, i) => (
-          <>
-            <div className="imageCard" key={i}>
+          <div key={i}>
+            <div className={focus ? "imageCard dontclick" : "imageCard"}>
               <img
                 onClick={() => {
                   setFocus(item.link);
@@ -66,25 +77,36 @@ export const SearchRender = ({ setInput }: ISearchRenderProps) => {
             {item.link === focus ? (
               <motion.div
                 className="expandingImageCard"
-                initial={{ width: "0", height: "0" }}
-                animate={{ width: "50dvw", height: "60dvh" }}
+                ref={wrapperRef}
+                initial={{ height: "0", width: "0" }}
+                animate={{ height: "auto", width: "auto" }}
                 transition={{
                   type: "spring",
                   stiffness: 400,
-                  damping: 25,
+                  damping: 35,
+                  duration: 0.2,
                 }}
               >
-                <img
-                  onClick={() => {
-                    setFocus(item.link);
-                  }}
-                  src={item.link}
-                  className="searchImage"
-                />
+                <img src={item.link} className="searchImage" />
                 <div>
-                  <p>LOREM DOREM IPSUM SIPSUM</p>
+                  <p>{item.title}</p>
                   {item.link === focus ? (
-                    <button
+                    <motion.button
+                      initial={{ boxShadow: "3px 4px 0px rgb(133, 133, 133)" }}
+                      whileHover={{
+                        scale: 1.1,
+                        boxShadow: "none",
+                        textShadow: "2px 2px 1px rgba(0, 0, 0, 0.527)",
+                      }}
+                      whileTap={{
+                        scale: 0.9,
+                        boxShadow: "inset 0px 0px 10px rgb(0, 0, 0)",
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 15,
+                      }}
                       onClick={async () => {
                         if (!isAuthenticated) return;
                         if (typeof user?.sub === "undefined") return;
@@ -103,12 +125,15 @@ export const SearchRender = ({ setInput }: ISearchRenderProps) => {
                       }}
                     >
                       Add to Favourites
-                    </button>
+                    </motion.button>
                   ) : null}
                 </div>
+                <a target="_blank" href={item.link}>
+                  {item.link}
+                </a>
               </motion.div>
             ) : null}
-          </>
+          </div>
         ))}
       </div>
     </div>

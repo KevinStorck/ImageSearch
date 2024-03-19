@@ -22,7 +22,7 @@ export const NavBar = () => {
       <div>
         <NavLink
           className={({ isActive }) =>
-            isActive ? "nav-link active" : "nav-link"
+            isActive && isAuthenticated ? "nav-link-active" : "nav-link"
           }
           to={"/"}
         >
@@ -30,7 +30,7 @@ export const NavBar = () => {
             whileHover={{ scale: 1.1 }}
             style={{
               textDecoration: isAuthenticated
-                ? "underline solid #ff48c4 2px"
+                ? undefined
                 : "underline solid #ff48c4 5px",
               marginBottom: !isAuthenticated ? "100px" : 0,
             }}
@@ -47,7 +47,12 @@ export const NavBar = () => {
       </div>
       <div id="navBarRight">
         {isAuthenticated && (
-          <NavLink to={"/favourites"}>
+          <NavLink
+            to={"/favourites"}
+            className={({ isActive }) =>
+              isActive ? "nav-link-active" : "nav-link"
+            }
+          >
             <h1>Favourites</h1>
           </NavLink>
         )}
