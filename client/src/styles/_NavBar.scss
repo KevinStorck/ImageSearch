@@ -4,6 +4,7 @@
   position: relative;
   display: grid;
   align-items: center;
+  justify-items: center;
   grid-template-columns: repeat(3, 1fr);
   width: 100dvw;
   // height: 50px;
@@ -79,4 +80,8 @@
     height: 80%;
     outline: rgb(136, 136, 136) solid 1px;
   }
+}
+
+.nav-link-active {
+  text-decoration: underline solid #ff48c4 2px;
 }
