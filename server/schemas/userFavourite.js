@@ -6,6 +6,7 @@ const addToFavouritesSchema = Joi.object({
     title: Joi.string().required(),
     byteSize: Joi.number().required(),
     url: Joi.string().required(),
+    searchTerm: Joi.string().required,
   }).required(),
 });
 
