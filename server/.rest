@@ -7,5 +7,5 @@ Content-Type: application/json
 
 {
     "id": "kevin",
-    "favourite": {"title": "lol", "byteSize": 2345, "url": "www.lol.com"}
+    "favourite": {"title": "test", "byteSize": 2345, "url": "www.test123.com", "searchTerm": "asd"}
 }
