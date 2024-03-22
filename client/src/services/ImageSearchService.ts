@@ -7,7 +7,6 @@ export const ImageSearch = async (input: string): Promise<IImageSearchData> => {
   let response = await axios.get<IImageSearchData>(
     `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=***REMOVED***&searchType=image&q=${input}`
   );
-  console.log(response);
 
   return response.data;
 };

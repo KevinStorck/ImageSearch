@@ -7,5 +7,27 @@ Content-Type: application/json
 
 {
     "id": "kevin",
-    "favourite": {"title": "test", "byteSize": 2345, "url": "www.test123.com", "searchTerm": "asd"}
+        "favourite":
+      {
+        "title": "Bornean Elephant | Species | WWF",
+        "byteSize": 81767,
+        "url": "https://files.worldwildlife.org/wwfcmsprod/images/Bornean_pygmy_elephant_08.10.2012_Species/hero_small/2q6p7236ur_HI_113471.jpg",
+        "searchTerm": "elephant",
+        "id": 1711124725140
+      }
 }
+###
+POST http://localhost:3000/users/favourite/remove
+Content-Type: application/json
+
+  {
+    "id": "kevin",
+    "favourite":
+      {
+        "title": "Bornean Elephant | Species | WWF",
+        "byteSize": 81767,
+        "url": "https://files.worldwildlife.org/wwfcmsprod/images/Bornean_pygmy_elephant_08.10.2012_Species/hero_small/2q6p7236ur_HI_113471.jpg",
+        "searchTerm": "elephant",
+        "id": 1711124725140
+      }
+  }
