@@ -1,12 +1,12 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import { IImage } from "../models/FavouriteImage";
+import { IImageFromServer } from "../models/FavouriteImage";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 export const UserFavourites = () => {
   const { user, isAuthenticated } = useAuth0();
-  const [favourites, setFavourites] = useState<IImage[]>();
+  const [favourites, setFavourites] = useState<IImageFromServer[]>();
   const [focus, setFocus] = useState<string>("");
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export const UserFavourites = () => {
     let componentIsActive = true;
     const getFavourites = async () => {
       if (componentIsActive) {
-        let response = await axios.get<IImage[]>(
+        let response = await axios.get<IImageFromServer[]>(
           `http://localhost:3000/users/favourites/${user?.sub}`
         );
         setFavourites(response.data);
@@ -73,6 +73,7 @@ export const UserFavourites = () => {
             >
               <img src={item.url} className="searchImage" />
               <div>
+                <h2>{item.searchTerm}</h2>
                 <p>{item.title}</p>
                 {item.url === focus ? (
                   <motion.button
@@ -90,6 +91,30 @@ export const UserFavourites = () => {
                       type: "spring",
                       stiffness: 400,
                       damping: 15,
+                    }}
+                    onClick={async () => {
+                      if (typeof user?.sub === "undefined") return;
+                      let response = await axios.post(
+                        "http://localhost:3000/users/favourite/remove",
+                        {
+                          id: user.sub,
+                          favourite: {
+                            title: item.title,
+                            byteSize: item.byteSize,
+                            url: item.url,
+                            searchTerm: item.searchTerm,
+                            id: item.id,
+                          },
+                        }
+                      );
+                      if (response.status === 200) {
+                        setFavourites(
+                          favourites.filter(
+                            (favourite) => favourite.id !== item.id
+                          )
+                        );
+                        setFocus("");
+                      }
                     }}
                   >
                     Remove

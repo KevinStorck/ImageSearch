@@ -8,3 +8,8 @@ export interface IImage {
   byteSize: number;
   url: string;
 }
+
+export interface IImageFromServer extends IImage {
+  searchTerm: string;
+  id: number;
+}

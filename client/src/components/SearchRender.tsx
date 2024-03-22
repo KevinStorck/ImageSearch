@@ -115,13 +115,14 @@ export const SearchRender = ({ setInput }: ISearchRenderProps) => {
                           {
                             id: user.sub,
                             favourite: {
-                              title: searchData.queries.request[0].searchTerms,
+                              title: item.title,
                               byteSize: item.image.byteSize,
                               url: item.link,
+                              searchTerm:
+                                searchData.queries.request[0].searchTerms,
                             },
                           }
                         );
-                        console.log(response);
                       }}
                     >
                       Add to Favourites
