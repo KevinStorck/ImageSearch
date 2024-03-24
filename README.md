@@ -1,7 +1,7 @@
 ﻿# ImageSearch
 
 Search for images using Google's Programmable Search Engine.
-Save favourite pictures to a local database.
+Save favourite pictures, these are stored on the server.
 
 > Made using React, TypeScript, SASS and Node.js.
 
